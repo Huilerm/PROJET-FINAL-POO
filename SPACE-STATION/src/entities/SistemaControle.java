@@ -1,4 +1,9 @@
 package entities;
+import interfaces.Alertavel;
 
-public class SistemaControle {
+public class SistemaControle implements Alertavel {
+    @Override
+    public void emitirAlerta(){
+
+    }
 }
