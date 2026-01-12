@@ -1,6 +1,8 @@
 package main;
 import entities.system.*;
 import entities.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import db.*;
 import java.sql.Connection;
@@ -34,15 +36,23 @@ public class SimuladorEstacao {
                     System.out.println("Inicializando sistemas da Estação Salyut-1...");
                     System.out.println("Carregando módulos...");
                     ModuloEnergia energia = new ModuloEnergia();
-                    energia.estadoModulo();
                     ModuloSuporteVida suporte = new ModuloSuporteVida();
-                    suporte.estadoModulo();
                     ModuloComunicacao comunicacao = new ModuloComunicacao();
-                    comunicacao.estadoModulo();
                     ModuloHabitacao habitacao = new ModuloHabitacao();
-                    habitacao.estadoModulo();
                     ModuloPesquisa pesquisa = new ModuloPesquisa();
-                    pesquisa.estadoModulo();
+                    ArrayList<Modulo> m=new ArrayList<>();
+                    m.add(energia);
+                    m.add(suporte);
+                    m.add(comunicacao);
+                    m.add(habitacao);
+                    m.add(pesquisa);
+                    for( Modulo md:m){
+                        md.estadoModulo();
+                    }
+                    for (int i=1;i<=10;i++){
+                        System.out.println("Dia "+i);
+
+                    }
             }
         }while (opcao != -1);
     }

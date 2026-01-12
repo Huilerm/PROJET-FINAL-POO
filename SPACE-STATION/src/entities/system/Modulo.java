@@ -1,7 +1,8 @@
 package entities.system;
 import interfaces.*;
 
-abstract class Modulo implements Alertavel, Monitoravel, Reparavel {
+public abstract class Modulo implements Alertavel, Monitoravel, Reparavel {
+    protected int integridade;
     @Override
     public void emitirAlerta(){
 
@@ -14,6 +15,11 @@ abstract class Modulo implements Alertavel, Monitoravel, Reparavel {
     public void reparar(){
 
     }
+
+    public void getIntegridade() {
+        System.out.println(this.integridade);
+    }
+
     public abstract void nomeModulo();
     public abstract void tipoModulo();
     public abstract void estadoModulo();

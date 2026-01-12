@@ -3,7 +3,7 @@ import java.util.Random;
 import interfaces.*;
 
 public class ModuloComunicacao extends Modulo{
-    private int integridade;
+
 
     @Override
     public void nomeModulo(){
@@ -15,7 +15,7 @@ public class ModuloComunicacao extends Modulo{
     }
     private void calcularIntegridade(){
         Random random = new Random();
-        integridade = random.nextInt(101);
+        integridade = 70+random.nextInt(31);
     }
     private void statusIntegridade(){
         if(integridade >= 80){
@@ -34,7 +34,7 @@ public class ModuloComunicacao extends Modulo{
             calcularIntegridade();
         }
         if(integridade >= 40){
-            System.out.println("-> Módulo de Comunicação: OK");
+            System.out.println("-> Módulo de Comunicação: "+this.integridade);
         }else{
             System.out.println("-> Módulo de Comunicação: FALHA");
         }

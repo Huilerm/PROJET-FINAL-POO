@@ -2,7 +2,7 @@ package entities.system;
 import java.util.Random;
 
 public class ModuloPesquisa extends Modulo{
-    private int integridade;
+
 
     @Override
     public void nomeModulo(){
@@ -14,7 +14,7 @@ public class ModuloPesquisa extends Modulo{
     }
     private void calcularIntegridade(){
         Random random = new Random();
-        integridade = random.nextInt(101);
+        integridade = 70+random.nextInt(31);
     }
     private void statusIntegridade(){
         if(integridade >= 80){
@@ -33,7 +33,7 @@ public class ModuloPesquisa extends Modulo{
             calcularIntegridade();
         }
         if(integridade >= 40){
-            System.out.println("-> Módulo de Pesquisa: OK");
+            System.out.println("-> Módulo de Pesquisa: "+this.integridade);
         }else{
             System.out.println("-> Módulo de Pesquisa: FALHA");
         }
