@@ -1,5 +1,6 @@
 package interfaces;
 
 public interface Monitoravel {
-    void status();
+    String estado();
+    int desgaste();
 }

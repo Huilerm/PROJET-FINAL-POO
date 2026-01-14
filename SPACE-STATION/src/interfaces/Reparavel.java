@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface Reparavel {
-    void reparar();
+    boolean reparar(String executor);
 }

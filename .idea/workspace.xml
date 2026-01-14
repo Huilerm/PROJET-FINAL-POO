@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="557e3058-0e24-430e-80b1-e7151c14c7cc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/SPACE-STATION.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/Astronauta.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/Astronauta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/RoboReparo.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/RoboReparo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/SistemaControle.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/SistemaControle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/Modulo.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/Modulo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloComunicacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloComunicacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloEnergia.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloEnergia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloHabitacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloHabitacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloPesquisa.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloPesquisa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloSuporteVida.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/entities/system/ModuloSuporteVida.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/interfaces/Alertavel.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/interfaces/Alertavel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/interfaces/Monitoravel.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/interfaces/Monitoravel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/interfaces/Reparavel.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/interfaces/Reparavel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SPACE-STATION/src/main/SimuladorEstacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/SPACE-STATION/src/main/SimuladorEstacao.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="38GZO9ZcCNVjNCkCUhclhW3iM4r" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/guiil/OneDrive/Desktop/PROJET-FINAL-POO",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="557e3058-0e24-430e-80b1-e7151c14c7cc" name="Changes" comment="" />
+      <created>1768427833705</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1768427833705</updated>
+    </task>
+    <servers />
+  </component>
+</project>

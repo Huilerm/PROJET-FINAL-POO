@@ -1,9 +1,11 @@
 package entities;
-import interfaces.Alertavel;
+import interfaces.Reparavel;
 
-public class SistemaControle implements Alertavel {
+public class SistemaControle implements Reparavel {
+    String estado;
+
     @Override
-    public void emitirAlerta(){
-
+    public boolean reparar(String executor){
+        return false;
     }
 }
