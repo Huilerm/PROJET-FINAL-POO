@@ -2,7 +2,7 @@ package entities.system;
 import java.util.Random;
 
 public class ModuloPesquisa extends Modulo{
-
+    boolean pesquisaEstaAtivada;
 
     @Override
     public void nomeModulo(){
@@ -37,5 +37,15 @@ public class ModuloPesquisa extends Modulo{
         }else{
             System.out.println("-> Módulo de Pesquisa: FALHA");
         }
+    }
+    public void executarExperimentos(){};
+    public void gerarEventoInesperado(){};
+    public void desligarExperimentos(ModuloEnergia me){
+        me.pontosdeEnergia+=5;
+    }
+    public void falhadomodulo(ModuloEnergia me){
+            if(this.integridade<30){
+                me.pontosdeEnergia-=5;
+            }
     }
 }

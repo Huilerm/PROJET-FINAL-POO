@@ -22,6 +22,7 @@ public class SimuladorEstacao {
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
+
         do {
             System.out.println("====================");
             System.out.println("SIMULADOR DE ESTAÇÃO");
@@ -50,8 +51,27 @@ public class SimuladorEstacao {
                         md.estadoModulo();
                     }
                     for (int i=1;i<=10;i++){
+                        scanner.nextLine();
                         System.out.println("Dia "+i);
+                        for( Modulo md:m){
+                            md.estadoModulo();
+                        }
+                        energia.produzirEnergia();
+                        energia.calcularConsumo();
+                        energia.atualizarProducao();
+                        energia.verificarSobrecarga();
+                        suporte.verificarCondicoes();
+                        //suporte.forcarEmergencia();
+                        //suporte.degradarCondicoes();
+                        comunicacao.verificarSinal(energia);
+                        if (comunicacao.contatoTerra==false){
+                            comunicacao.reparar();
+                        }
+                        suporte.degradarCondicoes();
 
+                        habitacao.avaliarConforto(energia,suporte);
+                        habitacao.avaliarIntegridade();
+                        pesquisa.desligarExperimentos(energia);
                     }
             }
         }while (opcao != -1);
