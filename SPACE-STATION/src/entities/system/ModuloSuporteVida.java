@@ -1,4 +1,6 @@
 package entities.system;
+import exceptions.EmergenciaException;
+
 import java.util.Random;
 
 public class ModuloSuporteVida extends Modulo{
@@ -38,4 +40,29 @@ public class ModuloSuporteVida extends Modulo{
             System.out.println("-> Módulo de Suporte à Vida: FALHA");
         }
     }
+    public void verificarCondicoes(){
+            if(integridade >= 80){
+                System.out.println("Oxigenio: 100% Pressão:Excelente Temperatura:25°");
+            }else if(integridade >= 60){
+                System.out.println("Oxigenio: 80% Pressão:Ok Temperatura:20°");
+            }else if(integridade >= 40){
+                System.out.println("Oxigenio: 50% Pressão:Ruim Temperatura:10°");
+            }else{
+                System.out.println("CRÍTICO Oxigenio: 30% Pressão:Horrível Temperatura:-5°");
+            }
+        }
+    public void forcarEmergencia(){
+        try{
+            throw new EmergenciaException("Emergência!!!!!");
+        }catch (EmergenciaException e){
+            System.out.println(e.getMessage());
+        }
+
+    };
+    public void impactarAstronautas(){};
+    public void degradarCondicoes(){
+        this.integridade-=20;
+    };
 }
+
+
