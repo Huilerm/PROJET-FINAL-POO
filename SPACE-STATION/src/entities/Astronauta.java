@@ -1,11 +1,92 @@
 package entities;
-import interfaces.Reparavel;
+import interfaces.SistemaCritico;
 
-public class Astronauta implements Reparavel {
-    String estado;
+public class Astronauta implements SistemaCritico {
+    private String nome;
+    private String especialidade;
+    private int idade;
+    private String estado;
+    private int fadiga = 0;
+    private int descansar = 20;
+
+    public Astronauta(String nome, String especialidade, int idade, String estado){
+        this.nome = nome;
+        this.especialidade = especialidade;
+        this.idade = idade;
+        this.estado = "normal";
+    }
+
+    public boolean repararModulo(SistemaCritico modulo){
+        if(fadiga >= 10){
+            System.out.println(nome + " está exausto demais para reparar módulos!");
+            return false;
+        }
+
+        return modulo.receberReparo("astronauta");
+    }
 
     @Override
-    public boolean reparar(String executor){
+    public String gerarAlerta(){
+        if(estado.equals("normal")){
+            return "Condições físicas normais.";
+        }else if(estado.equals("atenção")){
+            return "Astronauta apresenta sinais de cansaço.";
+        }else if(estado.equals("falha")) {
+            return "Estado físico comprometido!";
+        }else{
+            return "EMERGÊNCIA: astronauta preste a colapsar! Enorme risco à vida!";
+        }
+    }
+
+    private void atualizarEstado(){
+        if(fadiga < 3){
+            estado = "normal";
+        }else if(fadiga < 7){
+            estado = "atenção";
+        }else if(fadiga < 12){
+            estado = "falha";
+        }else{
+            estado = "emergência";
+        }
+    }
+
+    public void aumentarFadiga(int valor){
+        fadiga += valor;
+        atualizarEstado();
+    }
+
+    public void diminuirFadiga(){
+        fadiga -= 2;
+
+        if(fadiga < 0){
+            fadiga = 0;
+        }
+
+        atualizarEstado();
+    }
+
+    public void descansar(){
+        fadiga -= descansar;
+
+        if(fadiga < 0){
+            fadiga = 0;
+        }
+
+        atualizarEstado();
+    }
+
+    @Override
+    public boolean receberReparo(String executor) {
         return false;
+    }
+
+    @Override
+    public String estado() {
+        return "";
+    }
+
+    @Override
+    public int desgaste() {
+        return 0;
     }
 }
