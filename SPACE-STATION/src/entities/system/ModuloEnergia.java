@@ -111,15 +111,19 @@ public class ModuloEnergia extends Modulo{
         }
     }
 
-    public void verificarSobrecarga(){
+    public String verificarSobrecarga(){
         if(unidadesDeEnergia <= 5){
             estado = "emergência";
+            return "emergência";
         }else if(producao < 15){
             estado = "falha";
+            return "falha";
         }else if(producao < 25){
             estado = "atenção";
+            return "atenção";
         }else{
             estado = "normal";
+            return "normal";
         }
     }
 }

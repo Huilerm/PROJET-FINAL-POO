@@ -1,19 +1,28 @@
 package entities;
 import interfaces.SistemaCritico;
 
-public class Astronauta implements SistemaCritico {
-    private String nome;
-    private String especialidade;
-    private int idade;
-    private String estado;
+import java.io.Serializable;
+
+public class Astronauta implements SistemaCritico, Serializable {
+    private static final long serialVersionUID = 1L;//versão da classe
+    public String id;
+    public String nome;
+    public String especialidade;
+    public int idade;
+    public String estado;
     private int fadiga = 0;
     private int descansar = 20;
+    private int wins=0;
 
     public Astronauta(String nome, String especialidade, int idade, String estado){
+        this.id = String.valueOf(System.currentTimeMillis());
         this.nome = nome;
         this.especialidade = especialidade;
         this.idade = idade;
         this.estado = "normal";
+    }
+    public void upwins(){
+        this.wins=this.wins+1;
     }
 
     public boolean repararModulo(SistemaCritico modulo){
@@ -74,7 +83,10 @@ public class Astronauta implements SistemaCritico {
 
         atualizarEstado();
     }
-
+    @Override
+    public String toString() {
+        return nome + " (" + idade + " anos) Vitórias:"+wins;//Obrigatório pro objeto ser legível
+    }
     @Override
     public boolean receberReparo(String executor) {
         return false;
