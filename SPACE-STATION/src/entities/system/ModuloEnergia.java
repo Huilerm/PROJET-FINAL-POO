@@ -1,83 +1,70 @@
 package entities.system;
-import java.util.Random;
 
 public class ModuloEnergia extends Modulo{
-    int pontosdeEnergia=40;
-    int producao=30;
-    boolean isDesgastado;
+    public ModuloEnergia(String nome, int desgaste){
+        super(nome, desgaste);
+    }
+
+    private int unidadesDeEnergia = 40;
+    private int producao = 30;
+    private int capacidadeMaxima = 100;
+
+    public int getEnergia(){
+        return unidadesDeEnergia;
+    }
+
     @Override
-    public void nomeModulo(){
-        System.out.println("Zarya"); //Primeiro módulo de energia da NASA
-    }
-    @Override
-    public void tipoModulo(){
-        System.out.println("Energia");
-    }
-    private void calcularIntegridade(){
-        Random random = new Random();
-        integridade = 70+random.nextInt(31);
-    }
-    private void statusIntegridade(){
-        if(integridade >= 80){
-            System.out.println("ÓTIMO");
-        }else if(integridade >= 60){
-            System.out.println("ESTÁVEL");
-        }else if(integridade >= 40){
-            System.out.println("INSTÁVEL");
+    public String gerarAlerta(){
+        if(estado.equals("normal")){
+            return "Produção de energia em níveis normais.";
+        }else if(estado.equals("atenção")){
+            return "Variação na produção de energia. Recomenda-se o monitoramento.";
+        }else if(estado.equals("falha")) {
+            return "Falha no sistema de energia! Módulos dependentes poderam ser desligados!";
         }else{
-            System.out.println("CRÍTICO");
+            return "EMERGÊNCIA: perda de energia muito grande! Suporte à vida e comunicação comprometidos!";
         }
     }
-    @Override
-    public void estadoModulo(){
-        if (integridade == 0) {
-            calcularIntegridade();
-        }
-        if(integridade >= 40){
-            System.out.println("-> Módulo de Energia: "+this.integridade);
-        }else{
-            System.out.println("-> Módulo de Energia: FALHA");
-        }
-    }
+
     public void produzirEnergia(){
-        if(this.isDesgastado==true){
-            this.pontosdeEnergia+=this.producao-10;
-            System.out.println("producao desgastada");
+        aumentarDesgaste(3);
+        if(unidadesDeEnergia >= capacidadeMaxima) {
+            System.out.println("Bateria cheia! Produção interrompida.");
+            unidadesDeEnergia = capacidadeMaxima;
+            return;
         }
-        else{this.pontosdeEnergia+=this.producao;};
+        if(desgaste >= 40){
+            unidadesDeEnergia += producao - 10;
+            System.out.println("Produção desgastada.");
+            System.out.println("Total de " + unidadesDeEnergia + " unidades.");
+            aumentarDesgaste(1);
+        }else{
+            unidadesDeEnergia += producao;
+            System.out.println("Energia produzida sem falhas!");
+            System.out.println("Total de " + unidadesDeEnergia + " unidades.");
+        }
     }
-    public void calcularConsumo(){
-        System.out.println("Distribuindo 5pts de Energia pra cada módulo...");
-        this.pontosdeEnergia-=25;
-        System.out.println("pontos de Energia atuais: "+pontosdeEnergia);
-    }
+
     public void atualizarProducao(){
-        if (this.integridade<=40){
-            this.isDesgastado=true;
-            System.out.println("esta desgastado");
-        }
-    }
-    public void verificarSobrecarga(){
-        if(this.producao<25 ^ this.isDesgastado==true){
-            this.integridade=50;
-            System.out.println("integridade reduzida para 50");
-        }
-        else if(this.producao<25 && this.isDesgastado==true){
-            this.integridade=20;
-            System.out.println("integridade reduzida para 20");
-        }
-    }
-    public void falhadomodulo(ModuloComunicacao cm,ModuloPesquisa pe,ModuloSuporteVida sv ){
-        if(this.integridade<30){
-            cm.integridade=50;
-            pe.pesquisaEstaAtivada=false;
-        }
-        if (this.integridade<20){
-            sv.integridade=40;
-            sv.emitirAlerta();
-
+        if(desgaste >= 70){
+            producao = 20;
+            System.out.println("Produção de energia reduzida para 20 unidades permanentemente.");
         }
     }
 
-
+    public String verificarSobrecarga(){
+        if(unidadesDeEnergia <= 5){
+            estado = "emergência";
+            return "emergência";
+        }else if(producao < 15){
+            estado = "falha";
+            return "falha";
+        }else if(producao < 25){
+            estado = "atenção";
+            return "atenção";
+        }else{
+            estado = "normal";
+            return "normal";
+        }
+    }
 }

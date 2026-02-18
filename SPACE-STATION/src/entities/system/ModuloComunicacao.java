@@ -1,71 +1,53 @@
 package entities.system;
-import java.util.Random;
-import interfaces.*;
 
 public class ModuloComunicacao extends Modulo{
-    public Boolean contatoTerra=true;
+    public ModuloComunicacao(String nome, int desgaste){
+        super(nome, desgaste);
+    }
+
+    private boolean contatoTerra = true;
 
     @Override
-    public void nomeModulo(){
-        System.out.println("Telstar 1"); //Primeiro módulo de comunicação da NASA
-    }
-    @Override
-    public void tipoModulo(){
-        System.out.println("Comunicação");
-    }
-    private void calcularIntegridade(){
-        Random random = new Random();
-        integridade = 70+random.nextInt(31);
-    }
-    private void statusIntegridade(){
-        if(integridade >= 80){
-            System.out.println("ÓTIMO");
-        }else if(integridade >= 60){
-            System.out.println("ESTÁVEL");
-        }else if(integridade >= 40){
-            System.out.println("INSTÁVEL");
+    public String gerarAlerta(){
+        if(estado.equals("normal")){
+            return "Sinal excelente (ping ~1ms).";
+        }else if(estado.equals("atenção")){
+            return "Sinal instável (ping ~100ms).";
+        }else if(estado.equals("falha")) {
+            return "Sinal degradado (ping ~990ms).";
         }else{
-            System.out.println("CRÍTICO");
+            return "EMERGÊNCIA: sinal perdido. Comunicação com a Terra interrompida.";
         }
     }
-    @Override
-    public void estadoModulo(){
-        if (integridade == 0) {
-            calcularIntegridade();
-        }
-        if(integridade >= 40){
-            System.out.println("-> Módulo de Comunicação: "+this.integridade);
+
+    public void verificarSinal(ModuloEnergia energia){
+        if(energia.getEnergia() > 50){
+            estado = "normal";
+        }else if(energia.getEnergia() > 40){
+            estado = "atenção";
+            aumentarDesgaste(5);
+        }else if(energia.getEnergia() > 30){
+            estado = "falha";
+            aumentarDesgaste(10);
         }else{
-            System.out.println("-> Módulo de Comunicação: FALHA");
-        }
-    }
-    @Override
-    public void reparar(){
-        System.out.println("Reparando ...");
-        restabelecerContato();
-    }
-    public void verificarSinal(ModuloEnergia me) {
-        if (me.pontosdeEnergia > 50) {
-            System.out.println("Sinal com ping de 1ms");
-        } else if (me.pontosdeEnergia > 40) {
-            System.out.println("Sinal com ping de 100ms");
-        } else if (me.pontosdeEnergia > 30) {
-            System.out.println("Sinal com ping de 990ms");
-        }else if(me.pontosdeEnergia>20) {
-            System.out.println("Sinal Horrível");
+            estado = "emergência";
+            aumentarDesgaste(20);
             perderContato();
+        }
+        if(energia.getEnergia() > 55){
+            restabelecerContato();
         }
     }
 
     public void perderContato(){
-        System.out.println("Contato perdido");
-        this.contatoTerra=false;
+        System.out.println("Contato com a base na Terra foi perdido!");
+        contatoTerra = false;
+        aumentarDesgaste(15);
     }
-    public void restabelecerContato(){
-        System.out.println("Contato restabelecido");
-        this.contatoTerra=true;
-    }
-    public void falhadomodulo(){
 
+    public void restabelecerContato(){
+        System.out.println("Sinal restabelecido. Comunicação com a Terra retomada.");
+        contatoTerra = true;
+        aumentarDesgaste(5);
     }
 }

@@ -1,74 +1,52 @@
 package entities.system;
-
-import java.util.Random;
+import entities.Astronauta;
 
 public class ModuloHabitacao extends Modulo{
-    int pontosdeconforto=100;
+    public ModuloHabitacao(String nome, int desgaste){
+        super(nome, desgaste);
+    }
+
+    private int conforto = 100;
 
     @Override
-    public void nomeModulo(){
-        System.out.println("BEAM"); //Primeiro módulo de habitação da NASA
-    }
-    @Override
-    public void tipoModulo(){
-        System.out.println("Habitação");
-    }
-    private void calcularIntegridade(){
-        Random random = new Random();
-        integridade = 70+random.nextInt(31);
-    }
-    private void statusIntegridade(){
-        if(integridade >= 80){
-            System.out.println("ÓTIMO");
-        }else if(integridade >= 60){
-            System.out.println("ESTÁVEL");
-        }else if(integridade >= 40){
-            System.out.println("INSTÁVEL");
+    public String gerarAlerta(){
+        if(estado.equals("normal")){
+            return "Habitação está confortável.";
+        }else if(estado.equals("atenção")){
+            return "Habitação está levemente desconfortável.";
+        }else if(estado.equals("falha")) {
+            return "Habitação apresenta alguns problemas.";
         }else{
-            System.out.println("CRÍTICO");
+            return "EMERGÊNCIA: estrutura e conforto da habitação em risco!.";
         }
     }
-    @Override
-    public void estadoModulo(){
-        if (integridade == 0) {
-            calcularIntegridade();
-        }
-        if(integridade >= 40){
-            System.out.println("-> Módulo de Habitação: "+this.integridade);
+
+    public void avaliarConforto(ModuloEnergia energia, Astronauta astronauta){
+        if(energia.getEnergia() > 50){
+            estado = "normal";
+        }else if(energia.getEnergia() > 40){
+            estado = "atenção";
+            aumentarDesgaste(3);
+            astronauta.aumentarFadiga(1);
+            conforto -= 1;
+        }else if(energia.getEnergia() > 30){
+            estado = "falha";
+            aumentarDesgaste(3);
+            astronauta.aumentarFadiga(1);
+            conforto -= 5;
         }else{
-            System.out.println("-> Módulo de Habitação: FALHA");
+            estado = "emergência";
+            aumentarDesgaste(3);
+            astronauta.aumentarFadiga(1);
+            conforto -= 10;
         }
     }
-    public void avaliarConforto(ModuloEnergia me,ModuloSuporteVida sv){
-        if (sv.integridade<30 && me.pontosdeEnergia<30){
-            this.pontosdeconforto=30;
-            System.out.println("Conforto em 30 pontos");
-            this.integridade=20;
-        }
-        else if (me.pontosdeEnergia<30){
-            this.pontosdeconforto=70;
-            System.out.println("Conforto em 70 pontos");
-            this.integridade=60;
-        }
-        else if (sv.integridade<30){
-            this.pontosdeconforto=60;
-            System.out.println("Conforto em 60 pontos");
-            this.integridade=50;
-        }else{
-            System.out.println("Tudo perfeito!");
-        }
-    }
+
     public void avaliarIntegridade(){
-        if(integridade >= 80){
-            System.out.println("INTEGRIDADE NA HABITAÇÃO:ÓTIMO");
-        }else if(integridade >= 60){
-            System.out.println("INTEGRIDADE NA HABITAÇÃO:ESTÁVEL");
-        }else if(integridade >= 40){
-            System.out.println("INTEGRIDADE NA HABITAÇÃO:INSTÁVEL");
+        if(desgaste >= 90){
+            System.out.println("Integridade comprometida! Recomenda-se reparos com urgência!");
         }else{
-            System.out.println("INTEGRIDADE NA HABITAÇÃO:CRÍTICO");
+            System.out.println("Integridade dentro dos padrões.");
         }
     }
-    public void impactarAstronautas(){}
-
 }

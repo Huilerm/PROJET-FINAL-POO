@@ -1,68 +1,76 @@
 package entities.system;
-import exceptions.EmergenciaException;
-
-import java.util.Random;
+import entities.Astronauta;
 
 public class ModuloSuporteVida extends Modulo{
+    public ModuloSuporteVida(String nome, int desgaste){
+        super(nome, desgaste);
+    }
 
+    private int oxigenio = 100;
+    private double pressao = 1.0;
+    private int temperatura = 27;
 
-    @Override
-    public void nomeModulo(){
-        System.out.println("Unity"); //Primeiro módulo de suporte à vida da NASA
+    public int getOxigenio(){
+        return oxigenio;
     }
-    @Override
-    public void tipoModulo(){
-        System.out.println("Suporte à Vida");
-    }
-    private void calcularIntegridade(){
-        Random random = new Random();
-        integridade = 70+random.nextInt(31);
-    }
-    private void statusIntegridade(){
-        if(integridade >= 80){
-            System.out.println("ÓTIMO");
-        }else if(integridade >= 60){
-            System.out.println("ESTÁVEL");
-        }else if(integridade >= 40){
-            System.out.println("INSTÁVEL");
+
+    public String getPressao(){
+        if(pressao >= 0.8){
+            return "Estável";
         }else{
-            System.out.println("CRÍTICO");
+            return "Instável";
         }
     }
-    @Override
-    public void estadoModulo(){
-        if (integridade == 0) {
-            calcularIntegridade();
-        }
-        if(integridade >= 40){
-            System.out.println("-> Módulo de Suporte à Vida: "+this.integridade);
-        }else{
-            System.out.println("-> Módulo de Suporte à Vida: FALHA");
-        }
-    }
-    public void verificarCondicoes(){
-            if(integridade >= 80){
-                System.out.println("Oxigenio: 100% Pressão:Excelente Temperatura:25°");
-            }else if(integridade >= 60){
-                System.out.println("Oxigenio: 80% Pressão:Ok Temperatura:20°");
-            }else if(integridade >= 40){
-                System.out.println("Oxigenio: 50% Pressão:Ruim Temperatura:10°");
-            }else{
-                System.out.println("CRÍTICO Oxigenio: 30% Pressão:Horrível Temperatura:-5°");
-            }
-        }
-    public void forcarEmergencia(){
-        try{
-            throw new EmergenciaException("Emergência!!!!!");
-        }catch (EmergenciaException e){
-            System.out.println(e.getMessage());
-        }
 
-    };
-    public void impactarAstronautas(){};
+    public int getTemp(){
+        return temperatura;
+    }
+
+    @Override
+    public String gerarAlerta(){
+        if(estado.equals("normal")){
+            return "Suporte à vida estável..";
+        }else if(estado.equals("atenção")){
+            return "Anomalias foram encontrada. Níveis de oxigênio e temperatura oscilando.";
+        }else if(estado.equals("falha")) {
+            return "FALHA CRÍTICA! risco crescente para a tripulação.";
+        }else{
+            return "EMERGÊNCIA: Suporte à vida colapsou! Evacue imediatamente!";
+        }
+    }
+
     public void degradarCondicoes(){
-        this.integridade-=20;
-    };
+        oxigenio -= 5;
+        temperatura -= 1;
+        pressao -= 0.1;
+
+        if(estado.equals("falha")){
+            oxigenio -= 7;
+            temperatura -= 2;
+            pressao -= 0.2;
+        }
+        if(estado.equals("emergência")){
+            oxigenio -= 15;
+            temperatura -= 3;
+            pressao -= 0.3;
+        }
+    }
+
+    public void avaliarCondicoes(Astronauta astronauta) {
+        if (oxigenio < 20 || temperatura < 10 || pressao < 0.3) {
+            estado = "emergência";
+            aumentarDesgaste(10);
+            if (astronauta != null) astronauta.aumentarFadiga(5);
+        } else if (oxigenio < 40 || temperatura < 15 || pressao < 0.5) {
+            estado = "falha";
+            aumentarDesgaste(5);
+            if (astronauta != null) astronauta.aumentarFadiga(2);
+        } else if (oxigenio < 60 || temperatura < 20 || pressao < 0.7) {
+            estado = "atenção";
+            aumentarDesgaste(2);
+            if (astronauta != null) astronauta.aumentarFadiga(1);
+        } else {
+            atualizarEstado();
+        }
+    }
 }
-
-
