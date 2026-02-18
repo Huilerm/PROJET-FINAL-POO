@@ -1,27 +1,22 @@
 package db;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConexaoBanco {
-
-    public static Connection getConexaoMySQL() {
+    public static java.sql.Connection getConexaoMySQL(){
         Connection connection = null;
-
-        String url = "jdbc:mysql://localhost:3306/space_db?useSSL=false&serverTimezone=UTC";
+        String serverName = "localhost";
+        String mydatabase = "space_db";
+        String url = "jdbc:mysql://localhost:3307/space_db";
         String username = "root";
-        String password = "aluno";
-
-        try {
-            // FORÇA o carregamento do driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
+        String password = "4711";
+        try{
             connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Conectado ao banco!");
-        } catch (Exception e) {
+        } catch (SQLException e){
+            System.out.println("Erro ao conectar!");
             e.printStackTrace();
         }
-
         return connection;
     }
 }
