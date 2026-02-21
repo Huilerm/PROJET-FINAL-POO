@@ -5,6 +5,7 @@ import entities.RoboReparo;
 import entities.system.*;
 import db.ConexaoBanco;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,11 +13,11 @@ public class SimuladorEstacao {
 
     public static void partidaExecucao(ModuloEnergia energia, ModuloComunicacao comunicacao,
                                        ModuloSuporteVida vida, ModuloHabitacao habitacao,
-                                       Astronauta astro, RoboReparo robo) {
+                                       Astronauta astro, RoboReparo robo,construcaoAstronauta ca) {
 
         Scanner scanner = new Scanner(System.in);
 
-        GerenciadorTarefas gerenciador = new GerenciadorTarefas(energia, comunicacao, vida, habitacao, astro, robo);
+        GerenciadorTarefas gerenciador = new GerenciadorTarefas(energia, comunicacao, vida, habitacao, astro, robo,ca);
         boolean venceu = gerenciador.executarDias();
 
         if (venceu) {
@@ -31,7 +32,11 @@ public class SimuladorEstacao {
             Astronauta astroFinal = gerenciador.getAstronauta();
             if (astroFinal != null) {
                 astroFinal.upwins();
-                ConstrucaoAstronauta.salvarAstronauta(astroFinal);
+                try {
+                    ca.insertData(astroFinal);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("Vitória registrada para o astronauta " + astroFinal.nome);
             } else {
                 System.out.println("Erro: astronauta não encontrado ao final da missão.");
@@ -40,15 +45,11 @@ public class SimuladorEstacao {
     }
 
     public static void main(String[] args) {
-        try (Connection conexao = ConexaoBanco.getConexaoMySQL()) {
-            if (conexao != null) {
-                System.out.println("Conectado ao banco de dados!");
-            } else {
-                System.out.println("Falha ao conectar.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Connection conn = ConexaoBanco.getConexaoMySQL();
+        if (conn == null) {
+            System.out.println("Erro ao conectar no banco."); return;
         }
+        construcaoAstronauta ca = new construcaoAstronauta(conn);
 
         Scanner scanner = new Scanner(System.in);
         int opcao;
@@ -104,7 +105,7 @@ public class SimuladorEstacao {
 
                         Astronauta astro = null;
 
-                        partidaExecucao(energia, comunicacao, vida, habitacao, astro, robo);
+                        partidaExecucao(energia, comunicacao, vida, habitacao, astro, robo,ca);
 
                     } catch (Exception e) {
                         System.out.println("Falha ao iniciar os módulos!");
@@ -113,7 +114,8 @@ public class SimuladorEstacao {
                     break;
 
                 case 2:
-                    ConstrucaoAstronauta.iniciar();
+
+                    ca.iniciar();
                     break;
 
                 case 3:

@@ -3,6 +3,8 @@ package main;
 import entities.Astronauta;
 import entities.RoboReparo;
 import entities.system.*;
+
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class GerenciadorTarefas {
@@ -13,18 +15,20 @@ public class GerenciadorTarefas {
     private ModuloHabitacao habitacao;
     private Astronauta astronauta;
     private RoboReparo robo;
+    private construcaoAstronauta ca;
 
     Scanner scanner = new Scanner(System.in);
 
     public GerenciadorTarefas(ModuloEnergia energia, ModuloComunicacao comunicacao,
                               ModuloSuporteVida vida, ModuloHabitacao habitacao,
-                              Astronauta astronauta, RoboReparo robo) {
+                              Astronauta astronauta, RoboReparo robo,construcaoAstronauta ca) {
         this.energia = energia;
         this.comunicacao = comunicacao;
         this.vida = vida;
         this.habitacao = habitacao;
         this.astronauta = astronauta;
         this.robo = robo;
+        this.ca=ca;
     }
 
     public Astronauta getAstronauta() {
@@ -456,16 +460,24 @@ public class GerenciadorTarefas {
             String opcao = scanner.nextLine();
 
             if (opcao.equals("1")) {
-                astronauta = ConstrucaoAstronauta.selecionarAstronauta();
+                try {
+                    astronauta = ca.selecionarAstronauta();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 if (astronauta != null) {
                     System.out.println("Astronauta " + astronauta.nome + " selecionado.");
                 } else {
                     System.out.println("Nenhum astronauta foi selecionado. Tente novamente.");
                 }
             } else if (opcao.equals("2")) {
-                ConstrucaoAstronauta.criarAstronauta();
+                ca.criarAstronauta();
                 System.out.println("Astronauta criado com sucesso! Agora, selecione-o na lista.");
-                astronauta = ConstrucaoAstronauta.selecionarAstronauta();
+                try {
+                    astronauta = ca.selecionarAstronauta();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 if (astronauta != null) {
                     System.out.println("Astronauta " + astronauta.nome + " selecionado.");
                 } else {
