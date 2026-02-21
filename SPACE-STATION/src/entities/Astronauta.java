@@ -82,4 +82,15 @@ public class Astronauta implements SistemaCritico, Serializable {
     public int getFadiga(){
         return fadiga;
     }
+
+    public int getWins() {
+        return this.wins;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+    }
 }
