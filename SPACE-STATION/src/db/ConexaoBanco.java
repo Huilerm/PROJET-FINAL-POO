@@ -12,8 +12,9 @@ public class ConexaoBanco {
         String username = "root";
         String password = "4711";
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e){
+        } catch (SQLException | ClassNotFoundException e){
             System.out.println("Erro ao conectar!");
             e.printStackTrace();
         }

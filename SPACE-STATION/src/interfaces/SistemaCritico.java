@@ -1,7 +1,6 @@
 package interfaces;
 
 public interface SistemaCritico {
-    String gerarAlerta();
-    String estado();
-    int desgaste();
+    String estado(); // Usado em astronauta e modulo
+    int desgaste(); // Usado em astronauta e modulo
 }

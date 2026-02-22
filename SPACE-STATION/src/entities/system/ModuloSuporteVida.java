@@ -2,8 +2,8 @@ package entities.system;
 import entities.Astronauta;
 
 public class ModuloSuporteVida extends Modulo{
-    public ModuloSuporteVida(String nome, int desgaste){
-        super(nome, desgaste);
+    public ModuloSuporteVida(int desgaste){
+        super(desgaste);
     }
 
     private int oxigenio = 100;
@@ -14,29 +14,27 @@ public class ModuloSuporteVida extends Modulo{
         return oxigenio;
     }
 
-    public String getPressao(){
-        if(pressao >= 0.8){
-            return "Estável";
-        }else{
-            return "Instável";
-        }
-    }
-
     public int getTemp(){
         return temperatura;
     }
 
-    @Override
-    public String gerarAlerta(){
-        if(estado.equals("normal")){
-            return "Suporte à vida estável..";
-        }else if(estado.equals("atenção")){
-            return "Anomalias foram encontrada. Níveis de oxigênio e temperatura oscilando.";
-        }else if(estado.equals("falha")) {
-            return "FALHA CRÍTICA! risco crescente para a tripulação.";
-        }else{
-            return "EMERGÊNCIA: Suporte à vida colapsou! Evacue imediatamente!";
-        }
+    public double getPressaoValor() {
+        return pressao;
+    }
+
+    public void aumentarOxigenio(int quantidade) {
+        this.oxigenio += quantidade;
+        if (this.oxigenio > 100) this.oxigenio = 100;
+    }
+
+    public void aumentarPressao(double quantidade) {
+        this.pressao += quantidade;
+        if (this.pressao > 1.0) this.pressao = 1.0;
+    }
+
+    public void aumentarTemperatura(int quantidade) {
+        this.temperatura += quantidade;
+        if (this.temperatura > 27) this.temperatura = 27;
     }
 
     public void degradarCondicoes(){
